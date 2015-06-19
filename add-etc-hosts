@@ -77,7 +77,8 @@ fi
 function add_host() {
     ## Check if the hostname is already added. If so exit now.
     grep -qE "^$1.*[[:space:]]+$2[[:space:]]*" $ETC_HOSTS && exit 0
-    sed -i "s/^\($1.*\)$/\1 $2/" $ETC_HOSTS && echo "$2 added to $ETC_HOSTS ($3)."
+    ## Add .bk to use in Mac. Fixed 'extra characters at the end of d command'
+    sed -i .bk "s/^\($1.*\)$/\1 $2/" $ETC_HOSTS && echo "$2 added to $ETC_HOSTS ($3)."
 } # add_host
 
 function remove_host() {
@@ -92,7 +93,8 @@ function remove_host() {
     fi
     ## Removed extra space at the end of the line.
     REMOVED_HOST_LINE=$(echo $REMOVED_HOST_LINE | sed 's/\(.*\)[[:space:]]+$/\1/')
-    sed -i "s/$1.*$/$REMOVED_HOST_LINE/" $ETC_HOSTS && echo "$2 removed from $ETC_HOSTS ($3)."
+    ## Add .bk to use in Mac. Fixed 'extra characters at the end of d command'
+    sed -i .bk "s/$1.*$/$REMOVED_HOST_LINE/" $ETC_HOSTS && echo "$2 removed from $ETC_HOSTS ($3)."
 } # remove_host
 
 ## Perform the specified action.
